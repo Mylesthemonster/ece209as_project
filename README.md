@@ -21,8 +21,8 @@
 ```
 ## Creators
 
-- <https://github.com/Mylesthemonster>
--
+- [Myles Johnson](https://github.com/Mylesthemonster)
+- [Anchal Sinha](https://github.com/anchalsinha)
 
 ## Thanks
 
