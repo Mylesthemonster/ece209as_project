@@ -4,8 +4,8 @@ Smartwatches are increasingly used in our daily life. However, how to accurately
 
 # Team
 
-* Name of team member \#1 Myles Johnson
-* Name of team member \#2 Anchal Sinha
+* Myles Johnson
+* Anchal Sinha
 
 # Required Submissions
 
