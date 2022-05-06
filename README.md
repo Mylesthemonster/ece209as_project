@@ -7,7 +7,7 @@
   </p>
 </p>
 
-## Table of contents
+## Table of Contents
 - [What's included](#whats-included)
 - [Creators](#creators)
 - [Thanks](#thanks)
