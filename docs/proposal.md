@@ -24,13 +24,19 @@ What are the challenges and risks?
 
 What skills and resources are necessary to perform the project?
 
+Basic ML knowledge, python progrmaing, hardware to run model (3090/ Google collab), data manipulation skills
+
 ## 7. Metrics of Success
 
-What are metrics by which you would check for success?
+If we can imlement the dataset given into a model with more advanced complexity and layering then expiremneted in the paper then we succeed
 
 ## 8. Execution Plan
 
-Describe the key tasks in executing your project, and in case of team project describe how will you partition the tasks.
+Step 2: Split the provided data into training data, test, and validation data 
+
+Step 3: Improve our model to use more then 1 layer GRU, which is what the paper did
+
+Step 4: Make the model improve with new data with no retraining  
 
 ## 9. Related Work
 
@@ -38,14 +44,23 @@ Describe the key tasks in executing your project, and in case of team project de
 
 List the key papers that you have identified relating to your project idea, and describe how they related to your project. Provide references (with full citation in the References section below).
 
+ViFin: Harness Passive Vibration to Continuous Micro Finger Writing with a Commodity Smartwatch
+
 ### 9.b. Datasets
 
 List datasets that you have identified and plan to use. Provide references (with full citation in the References section below).
+
+Provided Finger Writing Dataset
 
 ### 9.c. Software
 
 List softwate that you have identified and plan to use. Provide references (with full citation in the References section below).
 
+Google Collab 
+Tensorflow 
+SensorLog w/ Apple watch Series 7
+
 ## 10. References
 
-List references correspondign to citations in your text above. For papers please include full citation and URL. For datasets and software include name and URL.
+PENGRUI QUAN & Ziqi Wang Finger Writing Dataset
+Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous TechnologiesVolume 5Issue 1March 2021 Article No.: 45pp 1–25https://doi.org/10.1145/3448119
