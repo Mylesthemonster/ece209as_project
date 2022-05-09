@@ -7,7 +7,8 @@ from tensorflow.keras.layers import (
     Input, Dense, Lambda, GRU
 )
 from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.models import load_model as load
+
+print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
 
 BATCH_SIZE = 220
 N_EPOCHS = 20
