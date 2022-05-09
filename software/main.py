@@ -7,6 +7,7 @@ from model import create_model, train
 
 # test data 
 name = 'eric'
+# name = None
 
 data, labels, data_length, labels_length = load_data(name)
 

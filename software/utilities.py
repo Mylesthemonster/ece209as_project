@@ -8,10 +8,11 @@ def load_data(name):
     data_record = pd.read_csv(DATA_RECORD_NAME, converters={'labels': pd.eval})
     data_record['data_path'] = data_record['data_path'].str.replace('\\', '/') # update path syntax
     data_record['data_path'] = data_record['data_path'].str.replace('../train_data/numbers/', DATA_DIR) # rename directory
-    records = data_record[data_record['name'] == name]
+    if name is not None: # filter dataset by name
+        data_record = data_record[data_record['name'] == name]
     data = []
     labels = []
-    for index, record in records.iterrows():
+    for index, record in data_record.iterrows():
         raw_data = np.load(record['data_path']).astype(np.float32)
         raw_labels = np.array(record['labels']).astype(np.float32)
         # if len(raw_labels) == 2:
