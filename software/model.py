@@ -156,4 +156,4 @@ def save(model):
     :param model: The model to be saved
     """
     model.save('my_model.h5')
-    print("Model has been saved")
+    print("\nModel has been saved")
