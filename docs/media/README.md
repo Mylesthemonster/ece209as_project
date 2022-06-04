@@ -1,1 +1,1 @@
-Put any image, video, sound, and such files here.
+Image, Video, Sound, and Misc files here
