@@ -21,7 +21,6 @@ def ctc_lambda_func(args):
     """
     It takes the output of the network, the labels, and the input length as arguments and returns the
     CTC loss
-    
     :param args: A list of tensors
     :return: The cost of the batch.
     """
@@ -155,5 +154,5 @@ def save(model):
     
     :param model: The model to be saved
     """
-    model.save('my_model.h5')
+    model.save('saved_model.h5')
     print("\nModel has been saved")
