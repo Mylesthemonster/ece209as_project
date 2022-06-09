@@ -8,7 +8,6 @@ from tensorflow.keras.layers import (
 from tensorflow.keras.optimizers import Adam
 import time
 from datetime import timedelta
-from evaluate import evaluate
 
 start_time = time.time()
 
@@ -143,7 +142,8 @@ def test(model, data_test, labels_test, test_data_length, test_label_length):
     test_loss = model.evaluate(test_inputs, test_outputs, batch_size = 440)
     
     print("\ntest loss, test acc:", test_loss)
-    evaluate(model, test_inputs, test_outputs, test_data_length, test_label_length, 10)
+    outputs = model.predict(test_inputs)
+    print(outputs)
 
     return model 
 
