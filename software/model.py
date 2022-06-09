@@ -8,7 +8,7 @@ from tensorflow.keras.layers import (
 from tensorflow.keras.optimizers import Adam
 import time
 from datetime import timedelta
-
+from evaluate import evaluate
 
 start_time = time.time()
 
@@ -57,7 +57,10 @@ def create_model(feature_size, num_classes):
     model = Model(inputs=[input_data, labels, input_length, label_length],
                   outputs=loss_out)
 
-    model.compile(loss={'ctc': lambda y_true, y_pred: y_pred}, optimizer=optimizer)
+    model.compile(
+        loss={'ctc': lambda y_true, y_pred: y_pred},
+        optimizer=optimizer
+    )
     
     print(f'\nModel Created it took: {timedelta(seconds = (time.time() - start_time))}. Here is the summary:')
     
@@ -138,11 +141,13 @@ def test(model, data_test, labels_test, test_data_length, test_label_length):
     
     # Evaluate the model
     print('\nEvaluating Model...\n')
-    results = model.evaluate(test_inputs, test_outputs, batch_size = 440)
+    test_loss = model.evaluate(test_inputs, test_outputs, batch_size = 440)
     
-    print("\ntest loss, test acc:", results)
+    print("\ntest loss, test acc:", test_loss)
+    evaluate(model, test_inputs, test_outputs, test_data_length, test_label_length, 10)
 
     return model 
+
 
 def save(model):
     """
