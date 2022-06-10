@@ -7,9 +7,7 @@ Smartwatches are increasingly used in our daily life. However, how to accurately
 * Myles Johnson
 * Anchal Sinha
 
-# Required Submissions
+# Submissions
 
-* [Proposal](https://github.com/Mylesthemonster/ece209as_project/blob/main/docs/proposal.md)
-* [Midterm Checkpoint Presentation Slides](https://docs.google.com/presentation/d/1FqgfDiFpJZjCT3_IehNraiZh98HMe6gW-kPdn3rI6uI/edit?usp=sharing)
-* [Final Presentation Slides](http://)
-* [Final Report](report)
+* [Final Presentation Slides](https://docs.google.com/presentation/d/1_H9WaXdZecpDAY4uhZGEy5Dg0js1neWY28Mcll32O2U/edit?usp=sharing)
+* [Final Report](https://github.com/Mylesthemonster/ece209as_project/blob/main/docs/report.md)
