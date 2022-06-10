@@ -1,7 +1,9 @@
-import numpy as np
-import pandas as pd
 import os
 import time
+from datetime import timedelta
+
+import numpy as np
+import pandas as pd
 from sklearn.model_selection import train_test_split
 
 start_time = time.time()
@@ -58,6 +60,8 @@ def load_data(name):
     data_test_length = np.array([len(e) for e in data_test]).astype(np.int64)
     labels_test_length = np.array([len(l) for l in labels_test]).astype(np.int64)
     data_test, labels_test = pad_data(data_test, labels_test, data_test_length, labels_test_length)
+    
+    print(f'\nData Loaded & Partitioned, it took: {timedelta(seconds = (time.time() - start_time))}')
 
     return (data_train, labels_train, data_train_length, labels_train_length), \
         (data_val, labels_val, data_val_length, labels_val_length), \

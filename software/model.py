@@ -1,17 +1,16 @@
+import time
+from datetime import timedelta
+
 import numpy as np
 import tensorflow as tf
 import tensorflow.keras as keras
 from tensorflow.keras import Model
-from tensorflow.keras.layers import (
-    Input, Dense, Lambda, GRU
-)
+from tensorflow.keras.layers import GRU, Dense, Input, Lambda
 from tensorflow.keras.optimizers import Adam
-import time
-from datetime import timedelta
 
 start_time = time.time()
 
-print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
+print('Num GPUs Available: ', len(tf.config.list_physical_devices('GPU')))
 
 BATCH_SIZE = 220
 N_EPOCHS = 20
@@ -141,7 +140,7 @@ def test(model, data_test, labels_test, test_data_length, test_label_length):
     print('\nEvaluating Model...\n')
     test_loss = model.evaluate(test_inputs, test_outputs, batch_size = 440)
     
-    print("\ntest loss, test acc:", test_loss)
+    print('\ntest loss, test acc:', test_loss)
     outputs = model.predict(test_inputs)
     print(outputs)
 
@@ -160,4 +159,4 @@ def save(model):
     :param model: The model to be saved
     """
     model.save('saved_model.h5')
-    print("\nModel has been saved")
+    print('\nModel has been saved')
