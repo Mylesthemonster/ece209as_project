@@ -1,6 +1,7 @@
 import os
 import time
 from datetime import timedelta
+from chunk import chunk_input_stream
 
 import numpy as np
 import pandas as pd
@@ -80,3 +81,33 @@ def pad_data(data, labels, data_length, labels_length):
         padded_labels[i, :l.shape[0]] = l
 
     return padded_data, padded_labels
+
+def chunk_data(data_train, labels_train_length, data_val, labels_val_length, data_test,labels_test_length):
+    """
+    It takes the data and labels and divides the data into chunks of the length specified by the labels
+    
+    :param data_train: The training data
+    :param labels_train_length: The length of each sequence in the training set
+    :param data_val: The validation data
+    :param labels_val_length: The length of each sequence in the validation set
+    :param data_test: The test data
+    :param labels_test_length: The length of each sequence in the test set
+    """
+    # print('\nDividing Data....')
+    
+    # print(data_train.shape)
+    # print(labels_train_length.shape)
+    
+    # print(data_val.shape)
+    # print(labels_val_length.shape)
+    
+    # print(data_test.shape)
+    # print(labels_test_length.shape)
+   
+    for index in np.ndindex(data_val.shape):
+        output = list(chunk_input_stream((i for i in data_val[index[0]][index[1]]), labels_val_length[index[2]]))
+        print(output)
+    
+    print(f'\nData Divided into Chunks, it took: {timedelta(seconds = (time.time() - start_time))}')
+    # output = np.array(list(chunk_input_stream((data_val[0][i] for i in range(data_val[0])), labels_val_length[0]))).astype('float32')
+    # print(output.shape)

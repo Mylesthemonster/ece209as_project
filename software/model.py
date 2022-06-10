@@ -56,7 +56,8 @@ def create_model(feature_size, num_classes):
 
     model.compile(
         loss={'ctc': lambda y_true, y_pred: y_pred},
-        optimizer=optimizer
+        optimizer=optimizer,
+        # metrics = ['accuracy']
     )
     
     print(f'\nModel Created it took: {timedelta(seconds = (time.time() - start_time))}. Here is the summary:')
@@ -143,6 +144,8 @@ def test(model, data_test, labels_test, test_data_length, test_label_length):
     print('\ntest loss, test acc:', test_loss)
     outputs = model.predict(test_inputs)
     print(outputs)
+    # tf.nn.ctc_beam_search_decoder(outputs, 10)
+    # print(tf.nn.ctc_beam_search_decoder(outputs, 10))
 
     return model 
 
