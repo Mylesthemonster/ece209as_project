@@ -16,14 +16,14 @@ from tensorflow.keras.backend import ctc_decode, get_value, function, learning_p
 from evaluate import model_accuracy
 import tensorflow.keras.backend as K
 from Levenshtein import distance
-import pickle
+import matplotlib.pyplot as plt
 
 start_time = time.time()
 
 print('Num GPUs Available: ', len(tf.config.list_physical_devices('GPU')))
 
 BATCH_SIZE = 220
-N_EPOCHS = 40
+N_EPOCHS = 30
 WEIGHTS_PATH = 'model.h5'
 
 def ctc_lambda_func(args):
@@ -91,7 +91,7 @@ def create_model(feature_size, num_classes, gru_size=64):
     train_model.summary()
     return train_model, test_model
 
-def train(model, data, labels, input_length, label_length, data_val, labels_val, val_data_length, val_label_length):
+def train(model, data, labels, input_length, label_length, data_val, labels_val, val_data_length, val_label_length, plot=False):
     """
     The function takes in the model, training data, training labels, input length, label length,
     validation data, validation labels, validation input length, validation label length, and callbacks.
@@ -136,10 +136,25 @@ def train(model, data, labels, input_length, label_length, data_val, labels_val,
         validation_data=(validate_inputs, validate_outputs)
     )
 
-    with open('history.pkl', 'wb') as f:
-        pickle.dump(history, f)
-    
     print(f'\nModel trained, it took: {timedelta(seconds = (time.time() - start_time))}')
+    
+    if plot:
+        # plt.plot(history.history['accuracy'])
+        # plt.plot(history.history['val_accuracy'])
+        # plt.title('model accuracy')
+        # plt.ylabel('accuracy')
+        # plt.xlabel('epoch')
+        # plt.legend(['train', 'validation'], loc='upper left')
+        # plt.show()
+
+        plt.plot(history.history['loss'])
+        plt.plot(history.history['val_loss'])
+        plt.title('model loss')
+        plt.ylabel('loss')
+        plt.xlabel('epoch')
+        plt.legend(['train', 'validation'], loc='upper left')
+        plt.show()
+        
     
     return model
 
@@ -170,7 +185,9 @@ def test(model, data_test, labels_test, test_data_length, test_label_length):
 FINE_TUNE_BATCH_SIZE = 10
 
 def test_and_update(model, data_test, labels_test, test_data_length, test_label_length):
-
+    """
+    The test_and_update() function tests the model accuracy and also fine tunes it with new data
+    """
     test_inputs = {
         'input': data_test,
         'labels': labels_test,
@@ -179,12 +196,6 @@ def test_and_update(model, data_test, labels_test, test_data_length, test_label_
     }
     test_outputs = {'softmax': np.zeros([labels_test.shape[0]]),
     'ctc': np.zeros([data_test.shape[0]])}
-    
-    # Evaluate the model
-    # print('\nEvaluating Model...\n')
-    # test_loss = model.evaluate(test_inputs, test_outputs, batch_size = 440)
-    
-    # print("\ntest loss, test acc:", test_loss)
     
     # new_model = Model(inputs=model.input, outputs=model.get_layer("softmax").output)
     # model_accuracy(model, test_inputs, labels_test, test_data_length, test_label_length)
@@ -246,9 +257,17 @@ def save_model(model, path):
     - the state of the optimizer, allowing to resume training exactly where you left off
     
     :param model: The model to be saved
+    :param path: The path to which to save the model
     """
     model.save_weights(path)
     print("\nModel has been saved")
 
 def load_model(model, path):
+
+    """
+    **The load_model() function loads a single HDF5 file which will contain the weights of the model **
+
+    :param model: The model to be loaded to
+    :param path: The path to which to load the model
+    """
     model.load_weights(path, by_name=True)
