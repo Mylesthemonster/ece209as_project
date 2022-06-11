@@ -34,7 +34,7 @@ name = 'eric'
 # test(test_model_chunked, data_test_chunked, labels_test_chunked, data_test_chunked_length, labels_test_chunked_length)
 
 # evaluate_gru_layer_sizes('accuracies.pkl')
-run_model()
+run_model(name)
 
 # Convert trained model to CoreML model for sensor log
 # convert_model_coreml(SAVEDMODEL_DIR)
