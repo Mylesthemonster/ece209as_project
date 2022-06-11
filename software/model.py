@@ -1,5 +1,6 @@
 import time
 from datetime import timedelta
+from urllib import response
 
 import numpy as np
 from sklearn import metrics
@@ -182,26 +183,51 @@ def test_and_update(model, data_test, labels_test, test_data_length, test_label_
     # print("\ntest loss, test acc:", test_loss)
     
     # new_model = Model(inputs=model.input, outputs=model.get_layer("softmax").output)
-    model_accuracy(model, test_inputs, labels_test, test_data_length, test_label_length)
+    # model_accuracy(model, test_inputs, labels_test, test_data_length, test_label_length)
 
-    print(labels_test.shape)
+    # print(labels_test.shape)
     
-    # for layer in model.layers:
-    #     layer.trainable = False
-    # model.get_layer('softmax').trainable = True
-    optimizer = Adam()
+    # # for layer in model.layers:
+    # #     layer.trainable = False
+    # # model.get_layer('softmax').trainable = True
+    # optimizer = Adam()
 
-    model.compile(
-        loss={'ctc': lambda y_true, y_pred: y_pred},
-        optimizer=optimizer
-    )
-    model.fit(
-        test_inputs, test_outputs,
-        batch_size=BATCH_SIZE,
-        epochs=4,
-    )
+    # model.compile(
+    #     loss={'ctc': lambda y_true, y_pred: y_pred},
+    #     optimizer=optimizer
+    # )
+    # model.fit(
+    #     test_inputs, test_outputs,
+    #     batch_size=BATCH_SIZE,
+    #     epochs=4,
+    # )
 
-    model_accuracy(model, test_inputs, labels_test, test_data_length, test_label_length)
+    # model_accuracy(model, test_inputs, labels_test, test_data_length, test_label_length)
+    # print('\ntest loss, test acc:', test_loss)
+    
+    # Model Prediction
+    output = model.predict(test_inputs)
+    
+    for i in range(len(output)-1):
+        x = test_inputs['labels'][i]
+        y = output[i]
+        print(f'\nCase {i+1} of {len(output)}:\nPredicted output is : {y}\nCorrect output is: {x}')
+        
+        while True:
+            try:
+                response = input("\nDo they match (y/n): ")
+                if response.lower() == 'y':
+                    print('\nThank you for response')
+                    break
+                
+                elif response.lower() == 'n':
+                    print('\nError Recorded')
+                    break
+                else:
+                    print('\nResponse not valid please try again')
+                    
+            except ValueError:
+                print ('\nCongrats you broke it')
 
     return model 
 
