@@ -1,5 +1,6 @@
 import time
 from datetime import timedelta
+from urllib import response
 
 import numpy as np
 import tensorflow as tf
@@ -142,10 +143,30 @@ def test(model, data_test, labels_test, test_data_length, test_label_length):
     test_loss = model.evaluate(test_inputs, test_outputs, batch_size = 440)
     
     print('\ntest loss, test acc:', test_loss)
-    outputs = model.predict(test_inputs)
-    print(outputs)
-    # tf.nn.ctc_beam_search_decoder(outputs, 10)
-    # print(tf.nn.ctc_beam_search_decoder(outputs, 10))
+    
+    # Model Prediction
+    output = model.predict(test_inputs)
+    
+    for i in range(len(output)-1):
+        x = test_inputs['labels'][i]
+        y = output[i]
+        print(f'\nCase {i+1} of {len(output)}:\nPredicted output is : {y}\nCorrect output is: {x}')
+        
+        while True:
+            try:
+                response = input("\nDo they match (y/n): ")
+                if response.lower() == 'y':
+                    print('\nThank you for response')
+                    break
+                
+                elif response.lower() == 'n':
+                    print('\nError Recorded')
+                    break
+                else:
+                    print('\nResponse not valid please try again')
+                    
+            except ValueError:
+                print ('\nCongrats you broke it')
 
     return model 
 

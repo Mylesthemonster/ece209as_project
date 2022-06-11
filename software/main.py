@@ -17,16 +17,16 @@ data_train, labels_train, data_train_length, labels_train_length = train_data
 data_val, labels_val, data_val_length, labels_val_length = val_data
 data_test, labels_test, data_test_length, labels_test_length = test_data
 
-chunk_data(data_train, labels_train_length, data_val, labels_val_length, data_test, labels_test_length)
+# chunk_data(data_train, labels_train_length, data_val, labels_val_length, data_test, labels_test_length)
 
-# plotter(data_train, data_val, data_test)
+plotter(data_train, data_val, data_test)
 
-# model = create_model(data_train[0].shape[1], 10)
-# train(model, data_train, labels_train, data_train_length, labels_train_length, data_val, labels_val, data_val_length, labels_val_length, None)
+model = create_model(data_train[0].shape[1], 10)
+train(model, data_train, labels_train, data_train_length, labels_train_length, data_val, labels_val, data_val_length, labels_val_length, None)
 
-# # save(model)
+# save(model)
 
-# test(model, data_test, labels_test, data_test_length, labels_test_length)
+test(model, data_test, labels_test, data_test_length, labels_test_length)
 
 
 # Convert trained model to CoreML model for sensor log
