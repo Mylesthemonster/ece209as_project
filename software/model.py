@@ -16,6 +16,7 @@ from tensorflow.keras.backend import ctc_decode, get_value, function, learning_p
 from evaluate import model_accuracy
 import tensorflow.keras.backend as K
 from Levenshtein import distance
+import pickle
 
 start_time = time.time()
 
@@ -62,8 +63,8 @@ def create_model(feature_size, num_classes, gru_size=64):
     label_length = Input(name='label_length', shape=[1], dtype='int64')
 
     gru = GRU(gru_size, return_sequences=True, name='gru1')(input_data)
-    dense1 = Dense(200, name='dense1')(gru)
-    # dense2 = Dense(100, name='dense1')(dense1)
+    dense1 = Dense(100, name='dense1')(gru)
+    # dense2 = Dense(200, name='dense2')(dense1)
     outputs = Dense(num_classes + 1, activation='softmax', name='output')(dense1)
 
     loss = Lambda(ctc_lambda_func, output_shape=(1,), name='ctc')([outputs, labels, input_length, label_length])
@@ -128,12 +129,15 @@ def train(model, data, labels, input_length, label_length, data_val, labels_val,
 
     # Training
     print('\nTraining Model\n')
-    model.fit(
+    history = model.fit(
         inputs, outputs,
         batch_size=BATCH_SIZE,
         epochs=N_EPOCHS,
         validation_data=(validate_inputs, validate_outputs)
     )
+
+    with open('history.pkl', 'wb') as f:
+        pickle.dump(history, f)
     
     print(f'\nModel trained, it took: {timedelta(seconds = (time.time() - start_time))}')
     
