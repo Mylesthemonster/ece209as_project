@@ -139,14 +139,6 @@ def train(model, data, labels, input_length, label_length, data_val, labels_val,
     print(f'\nModel trained, it took: {timedelta(seconds = (time.time() - start_time))}')
     
     if plot:
-        # plt.plot(history.history['accuracy'])
-        # plt.plot(history.history['val_accuracy'])
-        # plt.title('model accuracy')
-        # plt.ylabel('accuracy')
-        # plt.xlabel('epoch')
-        # plt.legend(['train', 'validation'], loc='upper left')
-        # plt.show()
-
         plt.plot(history.history['loss'])
         plt.plot(history.history['val_loss'])
         plt.title('model loss')
@@ -182,8 +174,6 @@ def test(model, data_test, labels_test, test_data_length, test_label_length):
     return model_accuracy(model, test_inputs, labels_test, test_data_length, test_label_length)
 
 
-FINE_TUNE_BATCH_SIZE = 10
-
 def test_and_update(model, data_test, labels_test, test_data_length, test_label_length):
     """
     The test_and_update() function tests the model accuracy and also fine tunes it with new data
@@ -197,52 +187,52 @@ def test_and_update(model, data_test, labels_test, test_data_length, test_label_
     test_outputs = {'softmax': np.zeros([labels_test.shape[0]]),
     'ctc': np.zeros([data_test.shape[0]])}
     
-    # new_model = Model(inputs=model.input, outputs=model.get_layer("softmax").output)
-    # model_accuracy(model, test_inputs, labels_test, test_data_length, test_label_length)
+    new_model = Model(inputs=model.input, outputs=model.get_layer("softmax").output)
+    model_accuracy(model, test_inputs, labels_test, test_data_length, test_label_length)
 
-    # print(labels_test.shape)
+    print(labels_test.shape)
     
-    # # for layer in model.layers:
-    # #     layer.trainable = False
-    # # model.get_layer('softmax').trainable = True
-    # optimizer = Adam()
+    # for layer in model.layers:
+    #     layer.trainable = False
+    # model.get_layer('softmax').trainable = True
+    optimizer = Adam()
 
-    # model.compile(
-    #     loss={'ctc': lambda y_true, y_pred: y_pred},
-    #     optimizer=optimizer
-    # )
-    # model.fit(
-    #     test_inputs, test_outputs,
-    #     batch_size=BATCH_SIZE,
-    #     epochs=4,
-    # )
+    model.compile(
+        loss={'ctc': lambda y_true, y_pred: y_pred},
+        optimizer=optimizer
+    )
+    model.fit(
+        test_inputs, test_outputs,
+        batch_size=BATCH_SIZE,
+        epochs=4,
+    )
 
-    # model_accuracy(model, test_inputs, labels_test, test_data_length, test_label_length)
-    # print('\ntest loss, test acc:', test_loss)
+    model_accuracy(model, test_inputs, labels_test, test_data_length, test_label_length)
+    print('\ntest loss, test acc:', test_loss)
     
     # Model Prediction
-    output = model.predict(test_inputs)
+    # output = model.predict(test_inputs)
     
-    for i in range(len(output)-1):
-        x = test_inputs['labels'][i]
-        y = output[i]
-        print(f'\nCase {i+1} of {len(output)}:\nPredicted output is : {y}\nCorrect output is: {x}')
+    # for i in range(len(output)-1):
+    #     x = test_inputs['labels'][i]
+    #     y = output[i]
+    #     print(f'\nCase {i+1} of {len(output)}:\nPredicted output is : {y}\nCorrect output is: {x}')
         
-        while True:
-            try:
-                response = input("\nDo they match (y/n): ")
-                if response.lower() == 'y':
-                    print('\nThank you for response')
-                    break
+    #     while True:
+    #         try:
+    #             response = input("\nDo they match (y/n): ")
+    #             if response.lower() == 'y':
+    #                 print('\nThank you for response')
+    #                 break
                 
-                elif response.lower() == 'n':
-                    print('\nError Recorded')
-                    break
-                else:
-                    print('\nResponse not valid please try again')
+    #             elif response.lower() == 'n':
+    #                 print('\nError Recorded')
+    #                 break
+    #             else:
+    #                 print('\nResponse not valid please try again')
                     
-            except ValueError:
-                print ('\nCongrats you broke it')
+    #         except ValueError:
+    #             print ('\nCongrats you broke it')
 
     return model 
 

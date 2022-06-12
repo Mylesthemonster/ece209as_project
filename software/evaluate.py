@@ -48,16 +48,16 @@ def model_accuracy(model, data, labels, input_length, label_length):
     loss, outputs = model.predict(data)
     y_pred = K.get_value(K.ctc_decode(outputs, input_length)[0][0])
     edit_distance = 0
-    all_y = []
-    all_y_hat = []
+    y_trues = []
+    y_preds = []
     for i in range(y_pred.shape[0]):
         y_pred_instance = y_pred[i][y_pred[i] != -1].astype(int)
         y_true_instance = labels[i][:label_length[i]].astype(int)
-        all_y.append(y_true_instance)
-        all_y_hat.append(y_pred_instance)
+        y_trues.append(y_true_instance)
+        y_preds.append(y_pred_instance)
         edit_distance += distance(y_true_instance, y_pred_instance)
     num = sum(label_length)
     print('%.2f%% (error = %d, all = %d)' % (100 - 100 * edit_distance / num, edit_distance, num))
-    count = print_accuracy(all_y_hat, all_y, 10)
+    count = print_accuracy(y_preds, y_trues)
     return 100 - 100 * edit_distance / num
 
