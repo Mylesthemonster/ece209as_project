@@ -1,7 +1,15 @@
-import matplotlib.pyplot as plt
+import os
 import pickle
 
-with open('history.pkl', 'rb') as f:
+import matplotlib.pyplot as plt
+
+fileDirectory = os.path.dirname(os.path.abspath(__file__))
+parentDirectory = os.path.dirname(fileDirectory)
+
+DATA_DIR = os.path.join(parentDirectory, 'data/')  
+
+# The Below code is loading the history of the model and plotting the accuracy and loss of the model.
+with open(DATA_DIR + 'history.pkl', 'rb') as f:
     history = pickle.load(f)
 
 plt.plot(history.history['accuracy'])

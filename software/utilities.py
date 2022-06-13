@@ -1,7 +1,7 @@
 import os
 import time
-from datetime import timedelta
 from chunk import chunk_input_stream
+from datetime import timedelta
 
 import numpy as np
 import pandas as pd
@@ -77,6 +77,15 @@ def load_data(name):
 
 
 def pad_data(data, labels, data_length, labels_length):
+    """
+    It takes in a list of data and labels, and pads them to the maximum length
+    
+    :param data: the data to be padded
+    :param labels: the labels for each data point
+    :param data_length: the length of each data sample
+    :param labels_length: the length of each label sequence
+    :return: padded_data and padded_labels
+    """
     max_data_length = data_length.max()
     padded_data = np.zeros((data.shape[0], max_data_length, data[0].shape[1]))
     for i, d in enumerate(data):

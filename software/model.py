@@ -1,24 +1,29 @@
+import os
 import time
 from datetime import timedelta
 from urllib import response
 
+import matplotlib.pyplot as plt
 import numpy as np
-from sklearn import metrics
 import tensorflow as tf
 import tensorflow.keras as keras
+import tensorflow.keras.backend as K
+from Levenshtein import distance
+from sklearn import metrics
 from tensorflow.keras import Model
+from tensorflow.keras.backend import (ctc_decode, function, get_value,
+                                      learning_phase)
 from tensorflow.keras.layers import GRU, Dense, Input, Lambda
 from tensorflow.keras.optimizers import Adam
 
-import time
-from datetime import timedelta
-from tensorflow.keras.backend import ctc_decode, get_value, function, learning_phase
 from evaluate import model_accuracy
-import tensorflow.keras.backend as K
-from Levenshtein import distance
-import matplotlib.pyplot as plt
 
 start_time = time.time()
+
+fileDirectory = os.path.dirname(os.path.abspath(__file__))
+parentDirectory = os.path.dirname(fileDirectory)
+
+DATA_DIR = os.path.join(parentDirectory, 'data/')  
 
 print('Num GPUs Available: ', len(tf.config.list_physical_devices('GPU')))
 
@@ -37,6 +42,12 @@ def ctc_lambda_func(args):
     return keras.backend.ctc_batch_cost(labels, y_pred, input_length, label_length)
 
 def ctc_decode_lambda_func(args):
+    """
+    It returns the accuracy of the model.
+    
+    :param args: The arguments to be passed to the function
+    :return: The accuracy of the model.
+    """
     y_pred, input_length, labels, label_length = args
     decoded = keras.backend.ctc_decode(y_pred, K.squeeze(input_length, axis=-1))[0][0]
     s1 = tf.sparse.from_dense(decoded[decoded != -1])
@@ -44,6 +55,13 @@ def ctc_decode_lambda_func(args):
     return tf.reduce_mean(tf.edit_distance(s1, s2))
 
 def accuracy(y_pred, y_true):
+    """
+    It returns the accuracy of the model.
+    
+    :param y_pred: the predicted values
+    :param y_true: the true labels
+    :return: The accuracy of the model.
+    """
     acc = y_pred[1]
     return acc
 

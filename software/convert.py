@@ -13,7 +13,7 @@ def convert_model_coreml(model_dir):
     
     fileDirectory = os.path.dirname(os.path.abspath(__file__))
     parentDirectory = os.path.dirname(fileDirectory)
-    SAVEDMODEL_DIR = os.path.join(parentDirectory, 'software/saved_model/model.mlmodel') 
+    SAVEDMODEL_DIR = os.path.join(parentDirectory, 'data/saved_model/model.mlmodel') 
     
     coreml_model.save(SAVEDMODEL_DIR)
     

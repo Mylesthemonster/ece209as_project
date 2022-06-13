@@ -3,6 +3,14 @@ import tensorflow.keras.backend as K
 from Levenshtein import distance, editops, opcodes
 
 def print_accuracy(y_pred, y_true):
+    """
+    It prints the accuracy of the predictions
+    
+    :param y_pred: the predicted labels
+    :param y_true: the true labels
+    :return: The count of the number of times each label was predicted correctly, incorrectly, missed,
+    or falsely predicted.
+    """
     count = np.zeros((10, 10 + 2))
     for i in range(len(y_pred)):
         y_hat = y_pred[i]
@@ -45,6 +53,16 @@ def print_accuracy(y_pred, y_true):
     return count
 
 def model_accuracy(model, data, labels, input_length, label_length):
+    """
+    It takes a model, some data, and some labels, and returns the accuracy of the model on that data
+    
+    :param model: the model to be evaluated
+    :param data: the input data
+    :param labels: the labels of the data
+    :param input_length: the length of the input sequence
+    :param label_length: the length of the label for each instance
+    :return: The accuracy of the model
+    """
     loss, outputs = model.predict(data)
     y_pred = K.get_value(K.ctc_decode(outputs, input_length)[0][0])
     edit_distance = 0
