@@ -1,3 +1,7 @@
+# Finger Writing With IMU Data
+
+> Project for UCLA ECEM202A/CSM213A (Spring 2022)
+
 ## 🚩 Table of Contents
 
 - [Team](#-team)
@@ -7,7 +11,6 @@
 - [Overview](#-overview)
 - [Usage](#-usage)
 - [Submissions](#-submissions)
-
 
 ## 👥 Team
 
