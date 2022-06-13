@@ -1,8 +1,6 @@
 theme: jekyll-theme-cayman
 show_downloads: true
 
-# google_analytics:[Your Google Analytics tracking ID]
-
 # Name of website
 title: Finger Wrting With IMU Data
 description: Project for UCLA ECEM202A/CSM213A (Spring 2022)
