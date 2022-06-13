@@ -16,25 +16,32 @@ This project explores classifying "air writes" using a common smartwatch, allowi
 
 ## 1. Introduction
 
-This section should cover the following items:
+We aim to design a machine learning model, that allows a user to “air write” letters numbers, and/or symbols by collecting a collection of IMU data the model will be able to predict what the user is air writing into text. 
 
-* Motivation & Objective: What are you trying to do and why? (plain English without jargon)
-* State of the Art & Its Limitations: How is it done today, and what are the limits of current practice?
-* Novelty & Rationale: What is new in your approach and why do you think it will be successful?
-* Potential Impact: If the project is successful, what difference will it make, both technically and broadly?
-* Challenges: What are the challenges and risks?
-* Requirements for Success: What skills and resources are necessary to perform the project?
-* Metrics of Success: What are metrics by which you would check for success?
+### Motivation & Objective
 
-Metrics:
+The specifics for this project include revamping a model discussed in the ViFin research paper by improving the model architecture, in addition, we will also add the evaluation step of using validation data, instead of only relying on the test data for metrics. Lastly, we want to incorporate a robust future where new users generate new test data for the model to learn from.
+
+### ViFins Limitations
+
+Training step is validated on test dataset
+Simple model architecture implementation
+Transfer learning based approach not ideal for new users
+
+### Novelty & Impact
+
+The reason why we chose to do this project was due to the fact it has real-world applicability. The team that did ViFin had a great idea and we look to make it even better. The concept of using more and more of the sensors we carry around with us every day isn’t a new one, and in fact, is becoming more and more relent. The idea of converting text you write in the air to actual text can be used in many applications such as accessibility and even just ease of use for a new way to input text into mobile and VR devices.
+
+### Metrics
+
 Edit distance is a metric that can measure the distance between two strings. This was utilized in this project since labels are essentially strings, and we can compare correctness of value and placement of output labels. The edit distance measures the number of transformations required to reach the target string from the source string, being 0 for completely identical strings. Right and wrong indicate placement of output labels, and miss and false positive indicate the correct/incorrect values of output labels. A sample output is shown below, which can further yield overall accuracy.
 
 ![metrics](media/stats.png)
 
 ## 2. Related Work
 
-This is the paper that is the basis of our project: 
-ViFin: Harness Passive Vibration to Continuous Micro Finger Writing with a Commodity Smartwatch
+This is the paper that is the basis of our project was: ***ViFin: Harness Passive Vibration to Continuous Micro Finger Writing with a Commodity Smartwatch***.
+In this paper they utilized an artificial neural network (ANN) based on a gradient descent to classify numbers and letters. with this model setup they were able to achieve a final accuracy of 90% for number and 91% for letter classification. They fine tuned their model with smaller training dataset for new users via transfer learning. Additionally, they created a 5-way gesture control using the gyroscope, that allows for spell check and other grammar corrections.
 
 ## 3. Technical Approach
 
@@ -78,13 +85,9 @@ Lastly, the continuous input technique based on our "chunking" process resulted 
 
 ## 5. Discussion and Conclusions
 
-We look to improve the model they implemented adn make it more robust. This paper is brand new (2021) so most of their process is using newer and relevant technology to implement their learning model. For example, we are both using Tensorflow post the TF 2.0 update. Our approach of adding a much need validation set, as well as improving the complexity opf the model will hopefully make for better more accurate results.
+We look to improve the model they implemented and make it more robust. This paper is brand new (2021) so most of their process is using newer and relevant technology to implement their learning model. For example, we are both using Tensorflow post the TF 2.0 update. Our approach of adding a much need validation set, as well as improving the complexity of the model will hopefully make for better more accurate results.'
 
-TO ADD:
-
-* add validation accuracy. hard to add because CTC decoding was not supported as a tensor operation, but can be implemented ourselves instead of using tensorflow functions
-
-* use future work from the slides
+Some tidbits for future work; We would have liked to have added validation accuracy, however it was hard to add because CTC decoding was not supported as a tensor operation. A solution that we did not explore would have been to create a validation accuracy metric system from scratch, instead of using tensorflow function. We were also not able to create a CoreML model to test real-time functionality on the apple watch itself. The library to convert Tensorflow models to CoreML models, at the time of this project, does not support converting models that implement CTC. Our way around this shortcoming was to record the real-time data then upload it to be feed into the model for prediction. Additionally, in real world application, users would generate the ground truth labels using a similar prompt system to the one we implemented for test cases (see commented code in test_and_update function). The ViFin paper implemented a nice gesture system and for our case a user gesture that can confirm the correctness prediction would also be a great ease-of-use addition.
 
 ## 6. References
 

@@ -33,18 +33,28 @@
 ## ❓ Why This Project?
 
 - To expand upon the brilliant idea, brought about in the ViFin paper, of using a device like a smartwatch to give users more ways to interact with their other devices
-- This application can play into many real world categories such as accessibility and even a new input format for typing/writing in mobile/vr applications 
+- This application can play into many real world categories such as accessibility and even a new input format for typing/writing in mobile/vr applications
 - Majority of people carry around smart devices with many sensors and that data we can be utilized to implement a lot of cool features
 
 ## 🎨 Features
 
-- [Viewer](https://github.com/nhn/tui.editor/tree/master/docs/en/viewer.md) : Supports a mode to display only markdown data without an editing area.
-  
-- [Internationalization (i18n)](https://github.com/nhn/tui.editor/tree/master/docs/en/i18n.md) : Supports English, Dutch, Korean, Japanese, Chinese, Spanish, German, Russian, French, Ukrainian, Turkish, Finnish, Czech, Arabic, Polish, Galician, Swedish, Italian, Norwegian, Croatian + language and you can extend.
-  
-- [Widget](https://github.com/nhn/tui.editor/tree/master/docs/en/widget.md) : This feature allows you to configure the rules that replaces the string matching to a specific `RegExp` with the widget node.
+- Input is provided to a GRU layer followed by a single fully connected Softmax activation layer.
+  - GRU layer is a mechanism for RNN being more efficient with similar performance to LSTM.
+- The model is trained with a CTC loss function, allowing the result labels to be decoded and aligned.
+  - CTC (Connectionist temporal classification) allows for alignment of temporal classifications
 
-- [Custom Block](https://github.com/nhn/tui.editor/tree/master/docs/en/custom-block.md) : Nodes not supported by Markdown can be defined through custom block. You can display the node what you want through writing the parsing logic with custom block.
+- 80:10:10 split for training data, test, and validation data.
+  - The ViFin paper validated data using the test dataset, which was also used for final evaluation. Proper data splitting was implemented.
+
+- Improved model complexity.
+  - Additional learnable parameters in the correct placed would improve overall accuracy and generalizability
+
+- Model scalability for new users.
+  - Incorporating user feedback into the pipeline, utilizing unlabeled predictions in fine-tuning and personalizing the model.
+
+- Allow for continuous user input, which required retraining the model allowing for input in a new form we define. 
+  - Implemented overlapping windowing, or "chunking" approach, as seen in the figure below.
+    ![chunking](media/chunking.png)
 
 ## 🐾 Overview
 
