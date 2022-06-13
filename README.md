@@ -26,4 +26,4 @@
 
 ## Thanks
 
-Thank you for viewing our project repo. :grin:
+Thank you for viewing our project repo checkout the website <https://mylesthemonster.github.io/ece209as_project/>. :grin:
